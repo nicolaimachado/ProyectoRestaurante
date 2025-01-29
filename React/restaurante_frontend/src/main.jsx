@@ -5,14 +5,20 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Home from "./pages/Home";
-import ListadoPlatos from "./components/ListadoPlatos";
-import ListadoPedidos from "./components/ListadoPedidos";
-import ModificarPlato from "./components/ModificarPlato";
-import AltaPlato from "./components/AltaPlato";
+import ListadoClientes from "./components/ListadoClientes";
+import ListadoReservas from "./components/ListadoReservas";
+// import ModificarPlato from "./components/ModificarPlato";
+// import AltaPlato from "./components/AltaPlato";
 import PaginaError from "./pages/PaginaError";
+import ModificarCliente from "./components/ModificarCliente";
+import AltaCliente from "./components/AltaCliente";
+import ModificarReserva from "./components/ModificarReserva";
+import AltaReserva from "./components/AltaReserva";
 
 let router = createBrowserRouter([
   {
@@ -21,20 +27,28 @@ let router = createBrowserRouter([
     errorElement : <PaginaError />,
     children: [   // Los hijos se renderizan en el elemento <Outlet /> del padre
       {
-        path: "listadoplatos",
-        element: <ListadoPlatos />,
+        path: "listadoclientes",
+        element: <ListadoClientes />,
       },
       {
-        path: "listadopedidos",
-        element: <ListadoPedidos />,
+        path: "listadoreservas",
+        element: <ListadoReservas />,
       },
       {
-        path: "altaplato",
-        element: <AltaPlato />,
+        path: "altacliente",
+        element: <AltaCliente/>,
       },
       {
-        path: "modificarplato/:idplato",
-        element: <ModificarPlato />,
+        path: "modificarcliente/:idCliente",
+        element: <ModificarCliente />,
+      },
+      {
+        path: "altareserva",
+        element: <AltaReserva/>,
+      },
+      {
+        path: "modificarreserva/:idReserva",
+        element: <ModificarReserva />,
       },
     ],
   },
