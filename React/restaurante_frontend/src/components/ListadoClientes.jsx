@@ -76,7 +76,7 @@ function ListadoClientes() {
                   <TableCell>{row.apellidoCliente}</TableCell>
                   <TableCell>{row.emailCliente}</TableCell>
                   <TableCell>{row.telefonoCliente}</TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <Button
                       variant="contained"
                       onClick={() => handleDelete(row.idCliente)}
@@ -85,7 +85,7 @@ function ListadoClientes() {
                       <DeleteForeverIcon fontSize="small" />
                     </Button>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <Button
                       variant="contained"
                       onClick={() => navigate("/modificarcliente/" + row.idCliente)}

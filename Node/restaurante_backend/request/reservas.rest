@@ -1,0 +1,15 @@
+GET http://localhost:3000/api/reservas
+
+###
+
+POST http://localhost:3000/api/reservas
+Content-Type: application/json
+
+
+###
+# Borrado de una reserva que no existe (404)
+DELETE http://localhost:3000/api/reservas/99
+
+###
+# Borrado de una reserva que existe (204)
+DELETE http://localhost:3000/api/reservas/34

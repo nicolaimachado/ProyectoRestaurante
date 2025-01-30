@@ -93,7 +93,7 @@ function ModificarCliente() {
               id="outlined-basic"
               label="Nombre"
               variant="outlined"
-              name="nombre"
+              name="nombreCliente"
               value={datos.nombreCliente}
               onChange={handleChange}
             />
@@ -101,7 +101,7 @@ function ModificarCliente() {
               id="outlined-basic"
               label="Apellido"
               variant="outlined"
-              name="apellido"
+              name="apellidoCliente"
               value={datos.apellidoCliente}
               onChange={handleChange}
             />
@@ -109,7 +109,7 @@ function ModificarCliente() {
               id="outlined-basic"
               label="Email"
               variant="outlined"
-              name="email"
+              name="emailCliente"
               value={datos.emailCliente}
               onChange={handleChange}
             />
@@ -117,7 +117,7 @@ function ModificarCliente() {
               id="outlined-basic"
               label="Telefono"
               variant="outlined"
-              name="telefono"
+              name="telefonoCliente"
               value={datos.telefonoCliente}
               onChange={handleChange}
             />

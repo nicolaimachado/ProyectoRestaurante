@@ -92,7 +92,7 @@ function ModificarReserva() {
               id="outlined-basic"
               label="ID Cliente"
               variant="outlined"
-              name="cliente"
+              name="idCliente"
               value={datos.idCliente}
               onChange={handleChange}
             />
@@ -100,7 +100,7 @@ function ModificarReserva() {
               id="outlined-basic"
               label="Fecha"
               variant="outlined"
-              name="fecha"
+              name="fechaReserva"
               value={datos.fechaReserva}
               onChange={handleChange}
             />

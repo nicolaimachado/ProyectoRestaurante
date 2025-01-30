@@ -1,0 +1,15 @@
+GET http://localhost:3000/api/clientes
+
+###
+
+POST http://localhost:3000/api/clientes
+Content-Type: application/json
+
+
+###
+# Borrado de un clietne que no existe (404)
+DELETE http://localhost:3000/api/clientes/99
+
+###
+# Borrado de un cliente que existe (204)
+DELETE http://localhost:3000/api/clientes/34

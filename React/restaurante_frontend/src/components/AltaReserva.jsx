@@ -66,7 +66,7 @@ function AltaReserva() {
               id="outlined-basic"
               label="ID cliente"
               variant="outlined"
-              name="nombre"
+              name="idCliente"
               value={datos.idCliente}
               onChange={handleChange}
             />
@@ -74,7 +74,7 @@ function AltaReserva() {
               id="outlined-basic"
               label="Fecha (AAAA-MM-DD)"
               variant="outlined"
-              name="fecha"
+              name="fechaReserva"
               value={datos.fechaReserva}
               onChange={handleChange}
             />
@@ -82,7 +82,7 @@ function AltaReserva() {
               id="outlined-basic"
               label="Descripcion"
               variant="outlined"
-              name="email"
+              name="descripcion"
               value={datos.descripcion}
               onChange={handleChange}
             />
