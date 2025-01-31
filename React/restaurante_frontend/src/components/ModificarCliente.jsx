@@ -12,6 +12,12 @@ function ModificarCliente() {
     emailCliente: "",
     telefonoCliente: "",
   });
+  // const [validacion, setValidacion] = useState({
+  //   nombreCliente: false, // true si hay error
+  //   apellidoCliente: false,
+  //   emailCliente: false,
+  //   telefonoCliente: false,
+  // });
 
   const navigate = useNavigate();
 
@@ -36,10 +42,10 @@ function ModificarCliente() {
   const handleSubmit = async (e) => {
     // No hacemos submit
     e.preventDefault();
-   
-    // Enviamos los datos mediante fetch
+    console.log("Vamos a validar");
+    if (validarDatos()){
+      // Enviamos los datos mediante fetch
     try {
-      
       const response = await fetch(
         "http://localhost:3000/api/clientes/" + datos.idCliente,
         {
@@ -63,7 +69,49 @@ function ModificarCliente() {
       console.error("Error:", error);
       alert("Error:", error);
     }
+    }
+    
   };
+
+  function validarDatos() {
+    // En principio, damos por bueno el formulario
+    let validado = true;
+    // // Estado de la validación auxiliar
+    // let validacionAux = {
+    //   nombre: false,
+    //   descripcion: false,
+    //   precio: false,
+    // };
+
+    // if (datos.nombre.length < 3) {
+    //   // Error en el nombre
+    //   validacionAux.nombre = true;
+    //   // Formulario invalido
+    //   validado = false;
+    // }
+
+    // if (datos.descripcion.length < 10) {
+    //   validacionAux.descripcion = true;
+    //   validado = false;
+    // }
+
+    // let expPrecio = /^\d{1,2}(\.\d{1,2})?$/;
+    // if (expPrecio.test(datos.precio)) {
+    //   // Los datos al menos tienen el formato correcto
+    //   if (parseFloat(datos.precio) < 0.5 || parseFloat(datos.precio) > 50) {
+    //     validacionAux.precio = true;
+    //     validado = false;
+    //   }
+    // } else {
+    //   validacionAux.precio = true;
+    //   validado = false;
+    // }
+
+    // // Actualizo el estado de la validacion de los Textfields
+    // setValidacion(validacionAux);
+    // console.log("Formulario valido:", validado);
+    return validado;
+  }
 
   const handleChange = (e) => {
     setDatos({
@@ -75,7 +123,7 @@ function ModificarCliente() {
   return (
     <>
       <Typography variant="h4" align="center" sx={{ mt: 2 }}>
-        Modificar cliente
+        Modificar cliente - ID:  {datos.idCliente}
       </Typography>
       <Grid
         container
