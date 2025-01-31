@@ -11,6 +11,11 @@ function ModificarReserva() {
     fechaReserva: "",
     descripcion: "",
   });
+  // const [validacion, setValidacion] = useState({
+  //   idCliente: false, // true si hay error
+  //   fechaReserva: false,
+  //   descripcion: false,
+  // });
 
   const navigate = useNavigate();
 
@@ -35,34 +40,37 @@ function ModificarReserva() {
   const handleSubmit = async (e) => {
     // No hacemos submit
     e.preventDefault();
-   
+    console.log("Vamos a validar");
+    if (validarDatos()){
     // Enviamos los datos mediante fetch
-    try {
-      
-      const response = await fetch(
-        "http://localhost:3000/api/reservas/" + datos.idReserva,
-        {
-          method: "PUT", // "PATCH"
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(datos), // JSON.stringify({blocked: true})
-        }
-      );
+        try {
+              
+          const response = await fetch(
+            "http://localhost:3000/api/reservas/" + datos.idReserva,
+            {
+              method: "PUT", // "PATCH"
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(datos), // JSON.stringify({blocked: true})
+            }
+          );
 
-      if (response.ok) {
-        // 204 No content
-        alert("Actualización correcta");
-        navigate(-1); // Volver a la ruta anterior
-      } else { // 404 Not Found plato no modificado o no encontrado
-        const data = await response.json();
-        alert(data.mensaje);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error:", error);
+          if (response.ok) {
+            // 204 No content
+            alert("Actualización correcta");
+            navigate(-1); // Volver a la ruta anterior
+          } else { // 404 Not Found plato no modificado o no encontrado
+            const data = await response.json();
+            alert(data.mensaje);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error:", error);
+        }
     }
-  };
+};
+    
 
   const handleChange = (e) => {
     setDatos({
@@ -70,6 +78,46 @@ function ModificarReserva() {
       [e.target.name]: e.target.value,
     });
   };
+
+  function validarDatos() {
+    // En principio, damos por bueno el formulario
+    let validado = true;
+    // // Estado de la validación auxiliar
+    // let validacionAux = {
+    //   nombre: false,
+    //   descripcion: false,
+    //   precio: false,
+    // };
+
+    // if (datos.nombre.length < 3) {
+    //   // Error en el nombre
+    //   validacionAux.nombre = true;
+    //   // Formulario invalido
+    //   validado = false;
+    // }
+
+    // if (datos.descripcion.length < 10) {
+    //   validacionAux.descripcion = true;
+    //   validado = false;
+    // }
+
+    // let expPrecio = /^\d{1,2}(\.\d{1,2})?$/;
+    // if (expPrecio.test(datos.precio)) {
+    //   // Los datos al menos tienen el formato correcto
+    //   if (parseFloat(datos.precio) < 0.5 || parseFloat(datos.precio) > 50) {
+    //     validacionAux.precio = true;
+    //     validado = false;
+    //   }
+    // } else {
+    //   validacionAux.precio = true;
+    //   validado = false;
+    // }
+
+    // // Actualizo el estado de la validacion de los Textfields
+    // setValidacion(validacionAux);
+    // console.log("Formulario valido:", validado);
+    return validado;
+  }
 
   return (
     <>
