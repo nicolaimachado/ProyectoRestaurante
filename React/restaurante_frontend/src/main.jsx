@@ -19,6 +19,7 @@ import ModificarCliente from "./components/ModificarCliente";
 import AltaCliente from "./components/AltaCliente";
 import ModificarReserva from "./components/ModificarReserva";
 import AltaReserva from "./components/AltaReserva";
+import ListadoEnFecha from "./components/ListadoEnFecha";
 
 let router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ let router = createBrowserRouter([
       {
         path: "modificarreserva/:idReserva",
         element: <ModificarReserva />,
+      },
+      {
+        path: "listadoenfecha",
+        element: <ListadoEnFecha />,
       },
     ],
   },

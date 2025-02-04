@@ -135,6 +135,33 @@ async updateReserva(req, res) {
     }
   }
 
+  async getReservasEnFecha(req, res) {
+    const fecha = req.params.fechaReserva;
+    try {
+      const filas = await Reserva.findAll({
+        where: {
+          fechaReserva: fecha
+        }
+      });
+  
+      if (filas) {
+        res.json(Respuesta.exito(data, "Reservas recuperadas"));
+      } else {
+        res.status(404).json(Respuesta.error(null, "No se encontraron reservas para la fecha especificada"));
+      }
+  
+    } catch (err) {
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+
 }
 
 module.exports = new ReservaController();
