@@ -80,7 +80,7 @@ class ClienteController {
     try {
       const fila = await Cliente.findByPk(idCliente); 
       if(fila){
-        res.json(Respuesta.exito(data, "Cliente recuperado"));
+        res.json(Respuesta.exito(fila, "Cliente recuperado"));
       } else {
         res.status(404).json(Respuesta.error(null, "Cliente no encontrado"));
       }

@@ -41,7 +41,7 @@ function ListadoEnFecha() {
       <form onSubmit={handleSubmit}>
         <Stack direction="row" spacing={2} alignItems="center" mb={4}>
           <TextField
-            label="Fecha (YYYY-MM-DD)"
+            label="Fecha"
             type="date"
             value={fecha}
             onChange={(e) => setFecha(e.target.value)}
@@ -63,17 +63,17 @@ function ListadoEnFecha() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Cliente</TableCell>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Descripcion</TableCell>
+                <TableCell>ID RESERVA</TableCell>
+                <TableCell>CLIENTE</TableCell>
+                <TableCell>FECHA</TableCell>
+                <TableCell>DESCRIPCION</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {datos.map((reserva) => (
                 <TableRow key={reserva.idReserva}>
                   <TableCell>{reserva.idReserva}</TableCell>
-                  <TableCell>{reserva.idCliente_Cliente.nombreCliente}</TableCell>
+                  <TableCell>{reserva.idCliente_Cliente.nombreCliente + " " + reserva.idCliente_Cliente.apellidoCliente}</TableCell>
                   <TableCell>{reserva.fechaReserva}</TableCell>
                   <TableCell>{reserva.descripcion}</TableCell>
                 </TableRow>

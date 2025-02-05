@@ -72,7 +72,7 @@ function AltaReserva() {
             />
             <TextField
               id="outlined-basic"
-              label="Fecha (AAAA-MM-DD)"
+              label="Fecha"
               variant="outlined"
               type="date"
               name="fechaReserva"

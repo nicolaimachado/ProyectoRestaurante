@@ -67,7 +67,7 @@ import {
                       <MDBDropdownItem link>Listado de reservas</MDBDropdownItem>
                     </Link>
                     <Link to="/listadoenfecha" style={{ color: "#4f4f4f" }}>
-                      <MDBDropdownItem link>Listado en fechas</MDBDropdownItem>
+                      <MDBDropdownItem link>Listado por fechas</MDBDropdownItem>
                     </Link>
                   </MDBDropdownMenu>
                 </MDBDropdown>

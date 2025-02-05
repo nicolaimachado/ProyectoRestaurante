@@ -87,7 +87,7 @@ class ReservaController {
     try {
       const fila = await Reserva.findByPk(idReserva); 
       if(fila){
-        res.json(Respuesta.exito(data, "Reserva recuperada"));
+        res.json(Respuesta.exito(fila, "Reserva recuperada"));
       } else {
         res.status(404).json(Respuesta.error(null, "Reserva no encontrada"));
       }
@@ -143,7 +143,6 @@ async updateReserva(req, res) {
 
   async getReservasEnFecha(req, res) {
     const fecha = req.params.fechareserva;
-    logMensaje("Fecha: " + fecha);
     try {
       const filas = await Reserva.findAll({
         where: {
