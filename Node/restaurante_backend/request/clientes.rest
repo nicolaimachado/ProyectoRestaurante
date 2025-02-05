@@ -1,15 +1,53 @@
+# Obtener todos los clientes
 GET http://localhost:3000/api/clientes
 
 ###
 
+# Obtener un cliente por ID
+GET http://localhost:3000/api/clientes/1
+
+###
+
+# Crear un nuevo cliente
 POST http://localhost:3000/api/clientes
 Content-Type: application/json
 
+{
+  "nombreCliente": "Juan",
+  "apellidoCliente": "Perez",
+  "emailCliente": "juan.perez@example.com",
+  "telefonoCliente": "123456789"
+}
 
 ###
-# Borrado de un clietne que no existe (404)
+
+# Actualizar un cliente existente
+PUT http://localhost:3000/api/clientes/1
+Content-Type: application/json
+
+{
+  "nombreCliente": "Juan",
+  "apellidoCliente": "Perez",
+  "emailCliente": "juan.perez@example.com",
+  "telefonoCliente": "987654321"
+}
+
+###
+
+# Eliminar un cliente que no existe (404)
 DELETE http://localhost:3000/api/clientes/99
 
 ###
-# Borrado de un cliente que existe (204)
-DELETE http://localhost:3000/api/clientes/34
+
+# Eliminar un cliente que existe (204)
+DELETE http://localhost:3000/api/clientes/1
+
+###
+
+# Buscar clientes por nombre y apellido
+GET http://localhost:3000/api/clientes/search?nombreCliente=Juan&apellidoCliente=Perez
+
+###
+
+# Obtener clientes por nombre
+GET http://localhost:3000/api/clientes/listadopornombre/Juan

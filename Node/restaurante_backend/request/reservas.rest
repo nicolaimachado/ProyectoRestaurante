@@ -1,15 +1,41 @@
+# Obtener todas las reservas
 GET http://localhost:3000/api/reservas
 
 ###
 
+# Obtener una reserva por ID
+GET http://localhost:3000/api/reservas/1
+
+###
+
+# Crear una nueva reserva
 POST http://localhost:3000/api/reservas
 Content-Type: application/json
 
+{
+  "idCliente": "1",
+  "fechaReserva": "2023-10-15",
+  "descripcion": "20:00"
+}
 
 ###
+
+# Actualizar una reserva existente
+PUT http://localhost:3000/api/reservas/1
+Content-Type: application/json
+
+{
+  ""idCliente": "1",
+  "fechaReserva": "2024-12-12",
+  "descripcion": "Reserva actualizada"
+}
+
+###
+
 # Borrado de una reserva que no existe (404)
 DELETE http://localhost:3000/api/reservas/99
 
 ###
+
 # Borrado de una reserva que existe (204)
-DELETE http://localhost:3000/api/reservas/34
+DELETE http://localhost:3000/api/reservas/1
