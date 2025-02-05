@@ -56,10 +56,12 @@ const navigate = useNavigate();
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="right">ID Reserva</TableCell>
-                <TableCell align="right">ID Cliente</TableCell>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Descripcion</TableCell>
+                <TableCell align="right">ID RESERVA</TableCell>
+                <TableCell>CLIENTE</TableCell>
+                <TableCell>FECHA</TableCell>
+                <TableCell>DESCRIPCION</TableCell>
+                <TableCell>ELIMINAR</TableCell>
+                <TableCell>EDITAR</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -69,7 +71,7 @@ const navigate = useNavigate();
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="right">{row.idReserva}</TableCell>
-                  <TableCell align="right">{row.idCliente}</TableCell>
+                  <TableCell>{row.idCliente_Cliente.nombreCliente + " " + row.idCliente_Cliente.apellidoCliente}</TableCell>
                   <TableCell>{row.fechaReserva}</TableCell>
                   <TableCell>{row.descripcion}</TableCell>
                   <TableCell>

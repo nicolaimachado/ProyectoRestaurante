@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('platos', {
+  return sequelize.define('cliente', {
     idCliente: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -17,10 +17,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     emailCliente: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: false,
+      unique: "emailCliente"
     },
     telefonoCliente: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(20),
       allowNull: false
     }
   }, {
@@ -34,6 +35,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "idCliente" },
+        ]
+      },
+      {
+        name: "emailCliente",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "emailCliente" },
         ]
       },
     ]

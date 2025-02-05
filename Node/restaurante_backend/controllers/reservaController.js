@@ -9,8 +9,8 @@ const sequelize = require("../config/sequelize.js");
 // Cargar las definiciones del modelo en sequelize
 const models = initModels(sequelize);
 // Recuperar el modelo plato
-const Reserva = models.reservas;
-const Cliente = models.clientes;
+const Reserva = models.reserva;
+const Cliente = models.cliente;
 
 class ReservaController {
   async createReserva(req, res) {
@@ -31,7 +31,13 @@ class ReservaController {
 
   async getAllReserva(req, res) {
       try {
-        const data = await Reserva.findAll(); // Recuperar todos los platos
+        const data = await Reserva.findAll({
+          include: [{
+            model: Cliente,
+            as: 'idCliente_Cliente'
+          }]
+        }); // Recuperar todos los 
+        
         res.json(Respuesta.exito(data, "Datos de reservas recuperadas"));
       } catch (err) {
         // Handle errors during the model call
@@ -136,21 +142,27 @@ async updateReserva(req, res) {
   }
 
   async getReservasEnFecha(req, res) {
-    const fecha = req.params.fechaReserva;
+    const fecha = req.params.fechareserva;
+    logMensaje("Fecha: " + fecha);
     try {
       const filas = await Reserva.findAll({
         where: {
           fechaReserva: fecha
-        }
+        },
+        include: [{
+          model: Cliente,
+          as: 'idCliente_Cliente'
+        }]
       });
   
       if (filas) {
-        res.json(Respuesta.exito(data, "Reservas recuperadas"));
+        res.json(Respuesta.exito(filas, "Reservas recuperadas"));
       } else {
         res.status(404).json(Respuesta.error(null, "No se encontraron reservas para la fecha especificada"));
       }
   
     } catch (err) {
+      logMensaje("Error :" + err);
       res
         .status(500)
         .json(

@@ -9,7 +9,7 @@ const sequelize = require("../config/sequelize.js");
 // Cargar las definiciones del modelo en sequelize
 const models = initModels(sequelize);
 // Recuperar el modelo plato
-const Cliente = models.clientes;
+const Cliente = models.cliente;
 
 class ClienteController {
   async createCliente(req, res) {

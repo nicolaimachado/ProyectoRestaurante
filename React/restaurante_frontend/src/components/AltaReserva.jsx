@@ -74,6 +74,7 @@ function AltaReserva() {
               id="outlined-basic"
               label="Fecha (AAAA-MM-DD)"
               variant="outlined"
+              type="date"
               name="fechaReserva"
               value={datos.fechaReserva}
               onChange={handleChange}

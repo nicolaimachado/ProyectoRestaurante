@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('pedidos', {
+  return sequelize.define('reserva', {
     idReserva: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -11,18 +11,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'clientes',
+        model: 'Cliente',
         key: 'idCliente'
       }
     },
     fechaReserva: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false
     },
     descripcion: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
-    },
+    }
   }, {
     sequelize,
     tableName: 'Reserva',
@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "FK_CLIENTE",
+        name: "idCliente",
         using: "BTREE",
         fields: [
           { name: "idCliente" },

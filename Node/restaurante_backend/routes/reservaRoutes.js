@@ -8,6 +8,6 @@ router.get('/:idReserva', reservaController.getReservaById);
 router.post('/', reservaController.createReserva);
 router.delete('/:idReserva', reservaController.deleteReserva);
 router.put('/:idReserva', reservaController.updateReserva);
-router.get('/listadoenfecha', reservaController.getReservasEnFecha);
+router.get('/listadoenfecha/:fechareserva', reservaController.getReservasEnFecha);
 
 module.exports = router;

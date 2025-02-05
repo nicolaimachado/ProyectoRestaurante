@@ -1,17 +1,17 @@
 var DataTypes = require("sequelize").DataTypes;
-var _clientes = require("./clientes");
-var _reservas = require("./reservas");
+var _cliente = require("./cliente");
+var _reserva = require("./reserva");
 
 function initModels(sequelize) {
-  var clientes = _clientes(sequelize, DataTypes);
-  var reservas = _reservas(sequelize, DataTypes);
+  var cliente = _cliente(sequelize, DataTypes);
+  var reserva = _reserva(sequelize, DataTypes);
 
-  clientes.belongsTo(clientes, { as: "idCliente_cliente", foreignKey: "idCliente"});
-  reservas.hasMany(reservas, { as: "reservas", foreignKey: "idCliente"});
+  reserva.belongsTo(cliente, { as: "idCliente_Cliente", foreignKey: "idCliente"});
+  cliente.hasMany(reserva, { as: "Reservas", foreignKey: "idCliente"});
 
   return {
-    clientes,
-    reservas,
+    cliente,
+    reserva,
   };
 }
 module.exports = initModels;

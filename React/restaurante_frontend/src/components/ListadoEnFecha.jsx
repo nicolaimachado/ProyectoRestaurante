@@ -13,7 +13,7 @@ import axios from "axios";
 
 function ListadoEnFecha() {
   const [fecha, setFecha] = useState("");
-  const [reservas, setReservas] = useState([]);
+  const [datos, setDatos] = useState([]);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -21,11 +21,11 @@ function ListadoEnFecha() {
     setError("");
     try {
       const response = await axios.get(`http://localhost:3000/api/reservas/listadoenfecha/${fecha}`);
-      setReservas(response.data.datos);
+      setDatos(response.data.datos);
     } catch (err) {
       if (err.response && err.response.status === 404) {
         setError("No se encontraron reservas para la fecha especificada");
-        setReservas([]);
+        setDatos([]);
       } else {
         setError("Error al obtener las reservas");
         console.error("Error fetching reservas:", err);
@@ -42,7 +42,7 @@ function ListadoEnFecha() {
         <Stack direction="row" spacing={2} alignItems="center" mb={4}>
           <TextField
             label="Fecha (YYYY-MM-DD)"
-            type="text"
+            type="date"
             value={fecha}
             onChange={(e) => setFecha(e.target.value)}
             InputLabelProps={{ shrink: true }}
@@ -58,23 +58,23 @@ function ListadoEnFecha() {
         </Typography>
       )}
 
-      {reservas.length > 0 && (
+      {datos.length > 0 && (
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
+                <TableCell>Cliente</TableCell>
                 <TableCell>Fecha</TableCell>
-                <TableCell>Cliente ID</TableCell>
                 <TableCell>Descripcion</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {reservas.map((reserva) => (
+              {datos.map((reserva) => (
                 <TableRow key={reserva.idReserva}>
                   <TableCell>{reserva.idReserva}</TableCell>
+                  <TableCell>{reserva.idCliente_Cliente.nombreCliente}</TableCell>
                   <TableCell>{reserva.fechaReserva}</TableCell>
-                  <TableCell>{reserva.idCliente}</TableCell>
                   <TableCell>{reserva.descripcion}</TableCell>
                 </TableRow>
               ))}
