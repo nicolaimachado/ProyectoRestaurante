@@ -51,6 +51,9 @@ import {
                     <Link to="/listadoclientes" style={{ color: "#4f4f4f" }}>
                       <MDBDropdownItem link>Listado de clientes</MDBDropdownItem>
                     </Link>
+                    <Link to="/listadopornombre" style={{ color: "#4f4f4f" }}>
+                      <MDBDropdownItem link>Listado por nombre</MDBDropdownItem>
+                    </Link>
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavbarItem>

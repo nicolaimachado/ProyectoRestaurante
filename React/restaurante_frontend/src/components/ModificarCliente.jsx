@@ -12,12 +12,12 @@ function ModificarCliente() {
     emailCliente: "",
     telefonoCliente: "",
   });
-  // const [validacion, setValidacion] = useState({
-  //   nombreCliente: false, // true si hay error
-  //   apellidoCliente: false,
-  //   emailCliente: false,
-  //   telefonoCliente: false,
-  // });
+  const [validacion, setValidacion] = useState({
+    nombreCliente: false, // true si hay error
+    apellidoCliente: false,
+    emailCliente: false,
+    telefonoCliente: false,
+  });
 
   const navigate = useNavigate();
 
@@ -74,42 +74,39 @@ function ModificarCliente() {
   };
 
   function validarDatos() {
+    let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     // En principio, damos por bueno el formulario
     let validado = true;
     // // Estado de la validación auxiliar
-    // let validacionAux = {
-    //   nombre: false,
-    //   descripcion: false,
-    //   precio: false,
-    // };
+    let validacionAux = {
+        nombreCliente: false, // true si hay error
+        apellidoCliente: false,
+        emailCliente: false,
+        telefonoCliente: false,
+    };
 
-    // if (datos.nombre.length < 3) {
-    //   // Error en el nombre
-    //   validacionAux.nombre = true;
-    //   // Formulario invalido
-    //   validado = false;
-    // }
+    if (datos.nombreCliente == null || datos.nombreCliente.length < 3 || datos.nombreCliente.length>100 || datos.nombreCliente == ""){
+      validacionAux.nombreCliente = true;
+      validado = false;
+    }
 
-    // if (datos.descripcion.length < 10) {
-    //   validacionAux.descripcion = true;
-    //   validado = false;
-    // }
+    if (datos.apellidoCliente == null || datos.apellidoCliente.length < 3 || datos.apellidoCliente.length>100 || datos.apellidoCliente == ""){
+      validacionAux.apellidoCliente = true;
+      validado = false;
+    }
 
-    // let expPrecio = /^\d{1,2}(\.\d{1,2})?$/;
-    // if (expPrecio.test(datos.precio)) {
-    //   // Los datos al menos tienen el formato correcto
-    //   if (parseFloat(datos.precio) < 0.5 || parseFloat(datos.precio) > 50) {
-    //     validacionAux.precio = true;
-    //     validado = false;
-    //   }
-    // } else {
-    //   validacionAux.precio = true;
-    //   validado = false;
-    // }
+    if (datos.emailCliente == null || datos.emailCliente.length < 3 || datos.emailCliente.length>100 || datos.emailCliente == "" || regex.test(datos.emailCliente)==false){
+      validacionAux.emailCliente = true;
+      validado = false;
+    }
 
-    // // Actualizo el estado de la validacion de los Textfields
-    // setValidacion(validacionAux);
-    // console.log("Formulario valido:", validado);
+    if (datos.telefonoCliente == null || datos.telefonoCliente.length != 9 || datos.telefonoCliente == ""){
+      validacionAux.telefonoCliente = true;
+      validado = false;
+    }
+    // Actualizo el estado de la validacion de los Textfields
+    setValidacion(validacionAux);
+    console.log("Formulario valido:", validado);
     return validado;
   }
 
@@ -144,6 +141,10 @@ function ModificarCliente() {
               name="nombreCliente"
               value={datos.nombreCliente}
               onChange={handleChange}
+              error={validacion.nombreCliente}
+              helperText={
+                validacion.nombreCliente && "Debes introducir un nombre (Entre 3 y 100 caracteres)"
+              }
             />
             <TextField
               id="outlined-basic"
@@ -152,6 +153,10 @@ function ModificarCliente() {
               name="apellidoCliente"
               value={datos.apellidoCliente}
               onChange={handleChange}
+              error={validacion.apellidoCliente}
+              helperText={
+                validacion.apellidoCliente && "Debes introducir un apellido (Entre 3 y 100 caracteres)"
+              }
             />
             <TextField
               id="outlined-basic"
@@ -160,6 +165,10 @@ function ModificarCliente() {
               name="emailCliente"
               value={datos.emailCliente}
               onChange={handleChange}
+              error={validacion.emailCliente}
+              helperText={
+                validacion.emailCliente && "Debes introducir un correo valido"
+              }
             />
             <TextField
               id="outlined-basic"
@@ -168,6 +177,10 @@ function ModificarCliente() {
               name="telefonoCliente"
               value={datos.telefonoCliente}
               onChange={handleChange}
+              error={validacion.telefonoCliente}
+              helperText={
+                validacion.telefonoCliente && "Debes introducir un numero de telefono"
+              }
             />
             <Button variant="contained" type="submit">
               Aceptar

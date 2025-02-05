@@ -7,6 +7,7 @@ router.get('/:idCliente', clienteController.getClienteById);
 router.post('/', clienteController.createCliente);
 router.delete('/:idCliente', clienteController.deleteCliente);
 router.put('/:idCliente', clienteController.updateCliente);
+router.get('/listadopornombre/:nombreCliente', clienteController.getClientePorNombre);
 
 
 // router.put('/:idtipo', tipoController.updateTipo);

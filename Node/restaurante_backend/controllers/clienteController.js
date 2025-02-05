@@ -135,6 +135,34 @@ class ClienteController {
     }
   }
 
+  async getClientePorNombre(req, res) {
+      const nombre = req.params.nombreCliente;
+      try {
+        const filas = await Cliente.findAll({
+          where: {
+            nombreCliente: nombre
+          }
+        });
+    
+        if (filas) {
+          res.json(Respuesta.exito(filas, "Clientes recuperados"));
+        } else {
+          res.status(404).json(Respuesta.error(null, "No se encontraron clientes con el nombre especificado"));
+        }
+    
+      } catch (err) {
+        logMensaje("Error :" + err);
+        res
+          .status(500)
+          .json(
+            Respuesta.error(
+              null,
+              `Error al recuperar los datos: ${req.originalUrl}`
+            )
+          );
+      }
+    }
+
 
 }
 

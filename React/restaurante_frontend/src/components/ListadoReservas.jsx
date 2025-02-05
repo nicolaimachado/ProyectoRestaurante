@@ -1,21 +1,14 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Button from "@mui/material/Button";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
+import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
 
 function ListadoReservas() {
   const [rows, setRows] = useState([]);
-const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getReservas() {
@@ -45,6 +38,15 @@ const navigate = useNavigate();
     }
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <>
       <Typography variant="h4" align="center" sx={{ mt: 2 }}>
@@ -57,15 +59,15 @@ const navigate = useNavigate();
             <TableHead>
               <TableRow>
                 <TableCell align="right">ID RESERVA</TableCell>
-                <TableCell>CLIENTE</TableCell>
-                <TableCell>FECHA</TableCell>
+                <TableCell>NOMBRE CLIENTE</TableCell>
+                <TableCell>FECHA RESERVA</TableCell>
                 <TableCell>DESCRIPCION</TableCell>
-                <TableCell>ELIMINAR</TableCell>
-                <TableCell>EDITAR</TableCell>
+                <TableCell align="center">ELIMINAR</TableCell>
+                <TableCell align="center">EDITAR</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow
                   key={row.idReserva}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -74,7 +76,7 @@ const navigate = useNavigate();
                   <TableCell>{row.idCliente_Cliente.nombreCliente + " " + row.idCliente_Cliente.apellidoCliente}</TableCell>
                   <TableCell>{row.fechaReserva}</TableCell>
                   <TableCell>{row.descripcion}</TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <Button
                       variant="contained"
                       onClick={() => handleDelete(row.idReserva)}
@@ -83,7 +85,7 @@ const navigate = useNavigate();
                       <DeleteForeverIcon fontSize="small" />
                     </Button>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <Button
                       variant="contained"
                       onClick={() => navigate("/modificarreserva/" + row.idReserva)}
@@ -95,6 +97,15 @@ const navigate = useNavigate();
               ))}
             </TableBody>
           </Table>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </TableContainer>
       </Box>
     </>

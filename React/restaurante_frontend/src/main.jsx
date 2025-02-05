@@ -20,6 +20,7 @@ import AltaCliente from "./components/AltaCliente";
 import ModificarReserva from "./components/ModificarReserva";
 import AltaReserva from "./components/AltaReserva";
 import ListadoEnFecha from "./components/ListadoEnFecha";
+import ListadoPorNombre from "./components/ListadoPorNombre";
 
 let router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ let router = createBrowserRouter([
         path: "listadoenfecha",
         element: <ListadoEnFecha />,
       },
+      {
+        path: "listadopornombre",
+        element: <ListadoPorNombre/>,
+      }
     ],
   },
 ]);

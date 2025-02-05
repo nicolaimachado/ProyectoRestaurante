@@ -9,6 +9,12 @@ function AltaReserva() {
     fechaReserva: "",
     descripcion: "",
   });
+  const [validacion, setValidacion] = useState({
+    idCliente: false, // true si hay error
+    fechaReserva: false,
+    descripcion: false,
+  });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,7 +22,8 @@ function AltaReserva() {
     e.preventDefault();
 
     // Enviamos los datos mediante fetch
-    try{
+    if (validarDatos()){
+      try{
         const response = await fetch("http://localhost:3000/api/reservas", {
             method: "POST",
             headers: {
@@ -36,7 +43,46 @@ function AltaReserva() {
         console.error("Error:", error);
         alert("Error:", error);
     }
+    }
   };
+
+  function validarDatos() {
+    // En principio, damos por bueno el formulario
+    let validado = true;
+    // // Estado de la validación auxiliar
+    let validacionAux = {
+      idCliente: false,
+      fechaReserva: false,
+      descripcion: false,
+    };
+
+    if (datos.idCliente == null || datos.idCliente == "") {
+      // Error en el nombre
+      validacionAux.idCliente = true;
+      // Formulario invalido
+      validado = false;
+    }
+
+    if (datos.fechaReserva == null || datos.fechaReserva == "") {
+      // Error en la fecha
+      validacionAux.fechaReserva = true;
+      // Formulario invalido
+      validado = false;
+    }
+
+    if (datos.descripcion == null || datos.descripcion == "") {
+      // Error en la desc
+      validacionAux.descripcion = true;
+      // Formulario invalido
+      validado = false;
+    }
+
+
+    // Actualizo el estado de la validacion de los Textfields
+    setValidacion(validacionAux);
+    console.log("Formulario valido:", validado);
+    return validado;
+  }
 
   const handleChange = (e) => { 
     setDatos({
@@ -69,6 +115,10 @@ function AltaReserva() {
               name="idCliente"
               value={datos.idCliente}
               onChange={handleChange}
+              error={validacion.idCliente}
+              helperText={
+                validacion.idCliente && "Debes introducir un ID de cliente"
+              }
             />
             <TextField
               id="outlined-basic"
@@ -78,6 +128,10 @@ function AltaReserva() {
               name="fechaReserva"
               value={datos.fechaReserva}
               onChange={handleChange}
+              error={validacion.fechaReserva}
+              helperText={
+                validacion.fechaReserva && "Debes introducir una fecha valida"
+              }
             />
             <TextField
               id="outlined-basic"
@@ -86,6 +140,10 @@ function AltaReserva() {
               name="descripcion"
               value={datos.descripcion}
               onChange={handleChange}
+              error={validacion.descripcion}
+              helperText={
+                validacion.descripcion && "Debes introducir una descripcion de minimo 1 caracter"
+              }
             />
             <Button variant="contained" type="submit">
               Aceptar
