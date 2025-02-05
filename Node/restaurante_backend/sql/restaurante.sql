@@ -40,9 +40,9 @@ CREATE TABLE `Cliente` (
 --
 
 INSERT INTO `Cliente` (`idCliente`, `nombreCliente`, `apellidoCliente`, `emailCliente`, `telefonoCliente`) VALUES
-(1, 'Juan', 'Perez', 'juan.perez@email.com', '123-456-7890'),
-(2, 'Maria', 'Lopez', 'maria.lopez@email.com', '987-654-3210'),
-(3, 'Carlos', 'Gomez', 'carlos.gomez@email.com', '456-789-1234');
+(1, 'Juan', 'Perez', 'juan.perez@email.com', '123123123'),
+(2, 'Maria', 'Lopez', 'maria.lopez@email.com', '987654321'),
+(3, 'Carlos', 'Gomez', 'carlos.gomez@email.com', '123456789');
 
 -- --------------------------------------------------------
 
@@ -62,10 +62,10 @@ CREATE TABLE `Reserva` (
 --
 
 INSERT INTO `Reserva` (`idReserva`, `idCliente`, `fechaReserva`, `descripcion`) VALUES
-(1, 1, '2024-02-01', 'Reserva para cena en restaurante'),
-(2, 2, '2024-02-05', 'Reserva para evento corporativo'),
-(3, 3, '2024-02-10', 'Reserva de hotel por 3 noches'),
-(4, 1, '2024-02-15', 'Reserva para conferencia');
+(1, 1, '2024-02-01', 'Reserva para 3 personas a las 18:00'),
+(2, 2, '2024-02-05', 'Reserva para evento corporativo min 12 personas a las 13:00'),
+(3, 3, '2024-02-10', 'Reserva de cumpleañero con pastel a las 20:00'),
+(4, 1, '2024-02-15', 'Reserva para 2 personas a las 19:00');
 
 --
 -- Índices para tablas volcadas
