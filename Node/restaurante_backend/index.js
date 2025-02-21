@@ -7,10 +7,10 @@ const cors = require("cors");
 // Importar gestores de rutas
 const clienteRoutes = require("./routes/clienteRoutes");
 const reservaRoutes = require("./routes/reservaRoutes");
-
+const config = require("./config/config"); // Import the config file
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || config.port; // Use the port from config
 
 // Configurar middleware para analizar JSON en las solicitudes
 app.use(express.json());
@@ -33,10 +33,9 @@ app.use("/api/reservas", reservaRoutes);
 // Iniciar el servidor
 // Iniciar el servidor solo si no estamos en modo de prueba
 if (process.env.NODE_ENV !== "test") {
-  app.listen(config.port, () => {
-  console.log(`Servidor escuchando en el puerto ${config.port}`);
+  app.listen(port, () => {
+    console.log(`Servidor escuchando en el puerto ${port}`);
   });
-  }
-  // Exportamos la aplicación para poder hacer pruebas
-  module.exports = app;
-
+}
+// Exportamos la aplicación para poder hacer pruebas
+module.exports = app;

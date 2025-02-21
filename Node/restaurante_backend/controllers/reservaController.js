@@ -13,6 +13,31 @@ const Reserva = models.reserva;
 const Cliente = models.cliente;
 
 class ReservaController {
+
+  async getGraficaReserva(req, res) {
+    try {
+      const reservas = await Reserva.findAll({
+        attributes: [
+          "fechaReserva",
+          [sequelize.fn("COUNT", sequelize.col("idReserva")), "reservas"],
+        ],
+        group: ["fechaReserva"],
+        raw: true,
+      });
+      res.json(Respuesta.exito(reservas, "Datos de reservas recuperados"));
+    } catch (err) {
+      logMensaje("Error al recuperar los datos de las reservas" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos de las reservas: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+
   async createReserva(req, res) {
     // Implementa la lógica para crear un nuevo plato
     const reserva = req.body;

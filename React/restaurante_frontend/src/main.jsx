@@ -21,6 +21,7 @@ import ModificarReserva from "./components/ModificarReserva";
 import AltaReserva from "./components/AltaReserva";
 import ListadoEnFecha from "./components/ListadoEnFecha";
 import ListadoPorNombre from "./components/ListadoPorNombre";
+import GraficaReserva from "./components/GraficaReserva";
 
 let router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ let router = createBrowserRouter([
       {
         path: "listadopornombre",
         element: <ListadoPorNombre/>,
+      },
+      {
+        path: "graficareserva",
+        element: <GraficaReserva/>,
       }
     ],
   },
