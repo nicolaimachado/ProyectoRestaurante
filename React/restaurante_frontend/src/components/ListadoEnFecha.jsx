@@ -13,7 +13,7 @@ import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
-
+import { apiUrl } from "../config";
 function ListadoEnFecha() {
   const [fecha, setFecha] = useState("");
   const [datos, setDatos] = useState([]);
@@ -25,7 +25,7 @@ function ListadoEnFecha() {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.get(`http://localhost:3000/api/reservas/listadoenfecha/${fecha}`);
+      const response = await axios.get(apiUrl + "/reservas/listadoenfecha/${fecha}");
       setDatos(response.data.datos);
     } catch (err) {
       if (err.response && err.response.status === 404) {
@@ -39,7 +39,7 @@ function ListadoEnFecha() {
   };
 
   const handleDelete = async (idReserva) => {
-    let response = await fetch("http://localhost:3000/api/reservas/" + idReserva, {
+    let response = await fetch(apiUrl + "/reservas/" + idReserva, {
       method: "DELETE",
     });
 

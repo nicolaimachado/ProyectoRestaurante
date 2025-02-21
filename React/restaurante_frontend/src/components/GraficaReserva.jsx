@@ -5,12 +5,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import generatePDF from "../utils/generatePDF";
 
+import { apiUrl } from "../config";
 function GraficaReserva() {
   const [datos, setDatos] = useState([]);
 
   useEffect(() => {
     async function getDatosGraficaReserva() {
-      let response = await fetch("http://localhost:3000/api/reservas/grafica", {
+      let response = await fetch(apiUrl + "/reservas/grafica", {
         method: "GET",
         credentials: "include",
       });

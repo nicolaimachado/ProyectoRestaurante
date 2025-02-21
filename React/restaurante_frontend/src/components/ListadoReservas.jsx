@@ -3,7 +3,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
-
+import { apiUrl } from "../config";
 function ListadoReservas() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -12,7 +12,7 @@ function ListadoReservas() {
 
   useEffect(() => {
     async function getReservas() {
-      let response = await fetch("http://localhost:3000/api/reservas");
+      let response = await fetch(apiUrl + "/api/reservas");
 
       if (response.ok) {
         let data = await response.json();
@@ -24,7 +24,7 @@ function ListadoReservas() {
   }, []); // Se ejecuta solo en el primer renderizado
 
   const handleDelete = async (idReserva) => {
-    let response = await fetch("http://localhost:3000/api/reservas/" + idReserva, {
+    let response = await fetch(apiUrl + "/reservas/" + idReserva, {
       method: "DELETE",
     });
 

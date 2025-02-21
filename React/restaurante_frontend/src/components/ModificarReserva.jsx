@@ -2,7 +2,7 @@ import { Typography, TextField, Stack, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-
+import { apiUrl } from "../config";
 function ModificarReserva() {
   const params = useParams();
   const [datos, setDatos] = useState({
@@ -22,7 +22,7 @@ function ModificarReserva() {
   useEffect(() => {
     async function getReservaById() {
       let response = await fetch(
-        "http://localhost:3000/api/reservas/" + datos.idReserva
+        apiUrl + "/reservas/" + datos.idReserva
       );
       if (response.ok) {
         let data = await response.json();
@@ -46,7 +46,7 @@ function ModificarReserva() {
         try {
               
           const response = await fetch(
-            "http://localhost:3000/api/reservas/" + datos.idReserva,
+            apiUrl + "/reservas/" + datos.idReserva,
             {
               method: "PUT", // "PATCH"
               headers: {

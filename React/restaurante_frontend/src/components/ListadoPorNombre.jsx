@@ -13,7 +13,7 @@ import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
-
+import { apiUrl } from "../config";
 function ListadoPorNombre() {
   const [nombre, setNombre] = useState("");
   const [datos, setDatos] = useState([]);
@@ -25,7 +25,7 @@ function ListadoPorNombre() {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.get(`http://localhost:3000/api/clientes/listadopornombre/${nombre}`);
+      const response = await axios.get(apiUrl + "/clientes/listadopornombre/${nombre}");
       setDatos(response.data.datos);
     } catch (err) {
       if (err.response && err.response.status === 404) {
@@ -39,7 +39,7 @@ function ListadoPorNombre() {
   };
 
   const handleDelete = async (idCliente) => {
-    let response = await fetch("http://localhost:3000/api/clientes/" + idCliente, {
+    let response = await fetch(apiUrl + "clientes/" + idCliente, {
       method: "DELETE",
     });
 

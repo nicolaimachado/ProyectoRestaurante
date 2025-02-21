@@ -3,7 +3,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
-
+import { apiUrl } from "../config";
 function ListadoClientes() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -12,7 +12,7 @@ function ListadoClientes() {
 
   useEffect(() => {
     async function getClientes() {
-      let response = await fetch("http://localhost:3000/api/clientes");
+      let response = await fetch(apiUrl + "/clientes");
 
       if (response.ok) {
         let data = await response.json();
@@ -24,7 +24,7 @@ function ListadoClientes() {
   }, []); // Se ejecuta solo en el primer renderizado
 
   const handleDelete = async (idCliente) => {
-    let response = await fetch("http://localhost:3000/api/clientes/" + idCliente, {
+    let response = await fetch(apiUrl + "/clientes/" + idCliente, {
       method: "DELETE",
     });
 

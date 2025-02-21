@@ -2,6 +2,7 @@ import { Typography, TextField, Stack, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { apiUrl } from "../config";
 
 function AltaReserva() {
   const [datos, setDatos] = useState({
@@ -24,7 +25,7 @@ function AltaReserva() {
     // Enviamos los datos mediante fetch
     if (validarDatos()){
       try{
-        const response = await fetch("http://localhost:3000/api/reservas", {
+        const response = await fetch(apiUrl + "/reservas", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
