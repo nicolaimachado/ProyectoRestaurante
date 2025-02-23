@@ -16,6 +16,7 @@ function GraficaReserva() {
       try {
         let response = await fetch(apiUrl + "/reservas/grafica", {
           method: "GET",
+          credentials: "include",
         });
 
         if (response.ok) {
