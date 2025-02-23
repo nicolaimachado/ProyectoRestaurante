@@ -24,9 +24,38 @@ class ReservaController {
         group: ["fechaReserva"],
         raw: true,
       });
-      res.json(Respuesta.exito(reservas, "Datos de reservas recuperados"));
+  
+      const formattedData = reservas.map((reserva) => ({
+        name: reserva.fechaReserva,
+        value: parseInt(reserva.reservas, 10),
+      }));
+  
+      res.json(Respuesta.exito(formattedData, "Datos de reservas recuperados"));
     } catch (err) {
-      logMensaje("Error al recuperar los datos de las reservas" + err);
+      logMensaje("Error al recuperar los datos de las reservas: " + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos de las reservas: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+
+  async getAllReserva(req, res) {
+    try {
+      const data = await Reserva.findAll({
+        include: [{
+          model: Cliente,
+          as: 'idCliente_Cliente'
+        }]
+      }); // Recuperar todos los 
+      
+      res.json(Respuesta.exito(data, "Datos de reservas recuperadas"));
+    } catch (err) {
+      // Handle errors during the model call
       res
         .status(500)
         .json(
@@ -39,7 +68,6 @@ class ReservaController {
   }
 
   async createReserva(req, res) {
-    // Implementa la lógica para crear un nuevo plato
     const reserva = req.body;
 
     try {
@@ -54,28 +82,7 @@ class ReservaController {
     }
   }
 
-  async getAllReserva(req, res) {
-      try {
-        const data = await Reserva.findAll({
-          include: [{
-            model: Cliente,
-            as: 'idCliente_Cliente'
-          }]
-        }); // Recuperar todos los 
-        
-        res.json(Respuesta.exito(data, "Datos de reservas recuperadas"));
-      } catch (err) {
-        // Handle errors during the model call
-        res
-          .status(500)
-          .json(
-            Respuesta.error(
-              null,
-              `Error al recuperar los datos de las reservas: ${req.originalUrl}`
-            )
-          );
-      }
-    }
+  
 
   async deleteReserva(req, res) {
     const idReserva = req.params.idReserva;

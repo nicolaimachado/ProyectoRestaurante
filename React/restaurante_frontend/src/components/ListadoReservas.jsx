@@ -4,6 +4,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
 import { apiUrl } from "../config";
+
 function ListadoReservas() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -12,11 +13,20 @@ function ListadoReservas() {
 
   useEffect(() => {
     async function getReservas() {
-      let response = await fetch(apiUrl + "/api/reservas");
+      try {
+        let response = await fetch(apiUrl + "/reservas", {
+          method: "GET",
+          credentials: "include",
+        });
 
-      if (response.ok) {
-        let data = await response.json();
-        setRows(data.datos);
+        if (response.ok) {
+          let data = await response.json();
+          setRows(data.datos);
+        } else {
+          console.error('Error fetching data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     }
 
@@ -26,6 +36,7 @@ function ListadoReservas() {
   const handleDelete = async (idReserva) => {
     let response = await fetch(apiUrl + "/reservas/" + idReserva, {
       method: "DELETE",
+      credentials: "include",
     });
 
     if (response.ok) {

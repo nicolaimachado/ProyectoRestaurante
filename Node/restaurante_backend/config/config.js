@@ -9,7 +9,7 @@ require("dotenv").config({
       host: process.env.DB_HOST || "localhost",
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD || "test",
-      name: process.env.DB_NAME || "bar",
+      name: process.env.DB_NAME || "restaurante",
       port: process.env.DB_PORT || 3306,
     },
     secretKey: process.env.SECRET_KEY || "default_secret",

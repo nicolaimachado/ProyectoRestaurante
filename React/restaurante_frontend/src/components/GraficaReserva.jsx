@@ -1,32 +1,35 @@
-import { useEffect, useState } from "react";
-import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import generatePDF from "../utils/generatePDF";
+import { useEffect, useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cell, CartesianGrid } from 'recharts';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import generatePDF from '../utils/generatePDF';
+import { apiUrl } from '../config';
 
-import { apiUrl } from "../config";
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
 function GraficaReserva() {
   const [datos, setDatos] = useState([]);
 
   useEffect(() => {
-    async function getDatosGraficaReserva() {
-      let response = await fetch(apiUrl + "/reservas/grafica", {
-        method: "GET",
-        credentials: "include",
-      });
+    async function getDatosGraficaReservas() {
+      try {
+        let response = await fetch(apiUrl + "/reservas/grafica", {
+          method: "GET",
+        });
 
-      if (response.ok) {
-        let data = await response.json();
-        let datosGrafica = data.datos.map((fila) => ({
-          fecha: fila.fechaReserva,
-          reservas: parseFloat(fila.reservas),
-        }));
-        setDatos(datosGrafica);
+        if (response.ok) {
+          let data = await response.json();
+          setDatos(data.datos);
+        } else {
+          console.error('Error fetching data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     }
 
-    getDatosGraficaReserva();
+    getDatosGraficaReservas();
   }, []);
 
   return (
@@ -37,11 +40,15 @@ function GraficaReserva() {
       <Box id="chart">
         <BarChart width={730} height={250} data={datos}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="fecha" />
+          <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="reservas" fill="#8884d8" />
+          <Bar dataKey="value" fill="#8884d8">
+            {datos.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Bar>
         </BarChart>
       </Box>
       <Box sx={{ mx: 4, mt: 2 }}>

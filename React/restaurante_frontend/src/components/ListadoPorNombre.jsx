@@ -25,7 +25,7 @@ function ListadoPorNombre() {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.get(apiUrl + "/clientes/listadopornombre/${nombre}");
+      const response = await axios.get(`${apiUrl}/clientes/listadopornombre/${nombre}`);
       setDatos(response.data.datos);
     } catch (err) {
       if (err.response && err.response.status === 404) {

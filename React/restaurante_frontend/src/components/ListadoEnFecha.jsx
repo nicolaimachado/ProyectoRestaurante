@@ -25,7 +25,8 @@ function ListadoEnFecha() {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.get(apiUrl + "/reservas/listadoenfecha/${fecha}");
+      const formattedDate = new Date(fecha).toISOString().split('T')[0]; // Format the date to YYYY-MM-DD
+      const response = await axios.get(`${apiUrl}/reservas/listadoenfecha/${formattedDate}`);
       setDatos(response.data.datos);
     } catch (err) {
       if (err.response && err.response.status === 404) {
