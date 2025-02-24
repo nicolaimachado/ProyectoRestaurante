@@ -35,10 +35,10 @@ function GraficaReserva() {
 
   return (
     <>
+      <Box id="pdf-content" align="center">
       <Typography variant="h4" align="center" sx={{ mt: 4 }}>
         Gráfica de Reservas por Día
       </Typography>
-      <Box id="chart">
         <BarChart width={730} height={250} data={datos}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
@@ -53,8 +53,8 @@ function GraficaReserva() {
         </BarChart>
       </Box>
       <Box sx={{ mx: 4, mt: 2 }}>
-        <Button variant="contained" onClick={() => generatePDF("chart")}>
-          Imprimir gráfica (jsPDF + html2canvas)
+        <Button variant="contained" onClick={generatePDF}>
+          Imprimir listado (jsPDF + html2canvas)
         </Button>
       </Box>
     </>
