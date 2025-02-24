@@ -4,6 +4,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
 import { apiUrl } from "../config";
+import generatePDF from "../utils/generatePDF";
 function ListadoClientes() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -49,6 +50,7 @@ function ListadoClientes() {
 
   return (
     <>
+    <Box  id="pdf-content" align="center">
       <Typography variant="h4" align="center" sx={{ mt: 2 }}>
         Listado de clientes
       </Typography>
@@ -109,6 +111,13 @@ function ListadoClientes() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </TableContainer>
+      </Box>
+      
+      </Box>
+      <Box sx={{ mx: 4, mt: 2 }}>
+        <Button variant="contained" onClick={generatePDF}>
+          Imprimir listado (jsPDF + html2canvas)
+        </Button>
       </Box>
     </>
   );

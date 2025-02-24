@@ -42,10 +42,22 @@ function GraficaReserva() {
         <BarChart width={730} height={250} data={datos}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+          <YAxis
+            label={{
+              value: 'Número de Reservas',
+              angle: -90,
+              position: '',
+              offset: -10,
+              style: { textAnchor: 'middle' }
+            }}
+            tickFormatter={(tick) => Number.isInteger(tick) ? tick : ''}
+          />
+          <Tooltip 
+            formatter={(value) => [`${value} reservas`, 'Número de Reservas']}
+            labelFormatter={(label) => `Día: ${label}`}
+          />
           <Legend />
-          <Bar dataKey="value" fill="#8884d8">
+          <Bar dataKey="value" name="Número de Reservas" fill="#8884d8">
             {datos.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
@@ -54,7 +66,7 @@ function GraficaReserva() {
       </Box>
       <Box sx={{ mx: 4, mt: 2 }}>
         <Button variant="contained" onClick={generatePDF}>
-          Imprimir listado (jsPDF + html2canvas)
+          Imprimir grafica (jsPDF + html2canvas)
         </Button>
       </Box>
     </>
