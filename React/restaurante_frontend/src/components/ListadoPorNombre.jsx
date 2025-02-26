@@ -51,7 +51,7 @@ function ListadoPorNombre() {
    * @param {number} idCliente - El ID del cliente a eliminar.
    */
   const handleDelete = async (idCliente) => {
-    let response = await fetch(apiUrl + "clientes/" + idCliente, {
+    let response = await fetch(apiUrl + "/clientes/" + idCliente, {
       method: "DELETE",
     });
 
@@ -64,6 +64,20 @@ function ListadoPorNombre() {
       setDatos(clientesTrasBorrado);
     }
   };
+  // const handleDelete = async (idCliente) => {
+  //   let response = await fetch(apiUrl + "clientes/" + idCliente, {
+  //     method: "DELETE",
+  //   });
+
+  //   if (response.ok) {
+  //     // Utilizando filter creo un array sin el cliente borrado
+  //     const clientesTrasBorrado = datos.filter(
+  //       (cliente) => cliente.idCliente != idCliente
+  //     );
+  //     // Establece los datos de nuevo para provocar un renderizado
+  //     setDatos(clientesTrasBorrado);
+  //   }
+  // };
 
   return (
     <Box>
