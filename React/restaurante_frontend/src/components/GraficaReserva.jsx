@@ -8,10 +8,17 @@ import { apiUrl } from '../config';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+/**
+ * Componente para mostrar una gráfica de reservas por día.
+ * @component
+ */
 function GraficaReserva() {
   const [datos, setDatos] = useState([]);
 
   useEffect(() => {
+    /**
+     * Obtiene los datos para la gráfica de reservas.
+     */
     async function getDatosGraficaReservas() {
       try {
         let response = await fetch(apiUrl + "/reservas/grafica", {

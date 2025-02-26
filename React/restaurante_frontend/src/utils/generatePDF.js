@@ -1,6 +1,9 @@
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
+/**
+ * Genera un archivo PDF a partir del contenido de un elemento HTML.
+ */
 const generatePDF = () => {
   const input = document.getElementById("pdf-content"); // ID del contenedor a capturar
   html2canvas(input, { scale: 2 }).then((canvas) => {

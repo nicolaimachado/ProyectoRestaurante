@@ -1,6 +1,10 @@
 import Menu from "../components/Menu";
 import { Box, Button, Typography } from "@mui/material";
 
+/**
+ * Componente para mostrar una página de error cuando no se encuentra la ruta.
+ * @component
+ */
 function PaginaError() {
   return (
     <>

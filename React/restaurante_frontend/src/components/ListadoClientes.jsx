@@ -5,6 +5,11 @@ import { useNavigate } from "react-router";
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
 import { apiUrl } from "../config";
 import generatePDF from "../utils/generatePDF";
+
+/**
+ * Componente para listar todos los clientes.
+ * @component
+ */
 function ListadoClientes() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -12,6 +17,9 @@ function ListadoClientes() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    /**
+     * Obtiene todos los clientes.
+     */
     async function getClientes() {
       let response = await fetch(apiUrl + "/clientes");
 
@@ -24,13 +32,17 @@ function ListadoClientes() {
     getClientes();
   }, []); // Se ejecuta solo en el primer renderizado
 
+  /**
+   * Maneja la eliminación de un cliente.
+   * @param {number} idCliente - El ID del cliente a eliminar.
+   */
   const handleDelete = async (idCliente) => {
     let response = await fetch(apiUrl + "/clientes/" + idCliente, {
       method: "DELETE",
     });
 
     if (response.ok) {
-      // Utilizando filter creo un array sin el plato borrado
+      // Utilizando filter creo un array sin el cliente borrado
       const clientesTrasBorrado = rows.filter(
         (cliente) => cliente.idCliente != idCliente
       );
@@ -39,10 +51,19 @@ function ListadoClientes() {
     }
   };
 
+  /**
+   * Maneja el cambio de página en la tabla.
+   * @param {object} event - El evento de cambio de página.
+   * @param {number} newPage - La nueva página seleccionada.
+   */
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  /**
+   * Maneja el cambio de filas por página en la tabla.
+   * @param {object} event - El evento de cambio de filas por página.
+   */
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
