@@ -16,12 +16,14 @@ const port = process.env.PORT || config.port;
 app.use(express.json());
 
 if (process.env.NODE_ENV !== "production") {
-  // Configurar CORS para admitir solicitudes desde el frontend
-  const corsOptions = {
-    origin: 'http://localhost:5173',
-    credentials: true,
-  };
-  app.use(cors(corsOptions));
+  // Configurar CORS para admitir el origen del frontend en desarrollo
+  app.use(
+    cors({
+      origin: "http://localhost:5173", // Permitir el frontend en desarrollo de React
+      // origin: "http://localhost:8081", // Permitir el frontend en desarrollo de React Native
+      credentials: true, // Permitir envío de cookies
+    })
+  );
 }
 // Configurar rutas de la API Rest
 app.use("/api/clientes", clienteRoutes);
