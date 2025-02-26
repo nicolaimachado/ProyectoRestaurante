@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import axios from "axios";
-import DeleteForeverIcon from '@mui/icons-material.DeleteForever';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
 import { apiUrl } from "../config";

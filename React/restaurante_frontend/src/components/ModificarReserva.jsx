@@ -1,5 +1,5 @@
 import { Typography, TextField, Stack, Button } from "@mui/material";
-import Grid from "@mui/material.Grid2";
+import Grid from '@mui/material/Grid';
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { apiUrl } from "../config";
