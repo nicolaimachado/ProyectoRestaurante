@@ -17,6 +17,10 @@ import {
   import logo from "../assets/images/logo.png";
   import { Link } from "react-router";
   
+  /**
+   * Componente de menú de navegación.
+   * @component
+   */
   function Menu() {
     const [openBasic, setOpenBasic] = useState(false);
   
@@ -86,4 +90,3 @@ import {
   }
   
   export default Menu;
-  

@@ -23,6 +23,9 @@ import ListadoEnFecha from "./components/ListadoEnFecha";
 import ListadoPorNombre from "./components/ListadoPorNombre";
 import GraficaReserva from "./components/GraficaReserva";
 
+/**
+ * Configuración de las rutas de la aplicación.
+ */
 let router = createBrowserRouter([
   {
     path: "/",

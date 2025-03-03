@@ -5,6 +5,10 @@ import { useNavigate } from "react-router";
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
 import { apiUrl } from "../config";
 
+/**
+ * Componente para listar todas las reservas.
+ * @component
+ */
 function ListadoReservas() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -12,6 +16,9 @@ function ListadoReservas() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    /**
+     * Obtiene todas las reservas.
+     */
     async function getReservas() {
       try {
         let response = await fetch(apiUrl + "/reservas", {
@@ -33,6 +40,10 @@ function ListadoReservas() {
     getReservas();
   }, []); // Se ejecuta solo en el primer renderizado
 
+  /**
+   * Maneja la eliminación de una reserva.
+   * @param {number} idReserva - El ID de la reserva a eliminar.
+   */
   const handleDelete = async (idReserva) => {
     let response = await fetch(apiUrl + "/reservas/" + idReserva, {
       method: "DELETE",
@@ -49,10 +60,19 @@ function ListadoReservas() {
     }
   };
 
+  /**
+   * Maneja el cambio de página en la tabla.
+   * @param {object} event - El evento de cambio de página.
+   * @param {number} newPage - La nueva página seleccionada.
+   */
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  /**
+   * Maneja el cambio de filas por página en la tabla.
+   * @param {object} event - El evento de cambio de filas por página.
+   */
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);

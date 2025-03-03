@@ -14,13 +14,24 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
 import { apiUrl } from "../config";
+// import TableBody from '@mui/material/TableBody';
+// import TableCell from '@mui/material/TableCell';
+// import TableContainer from '@mui/material/TableContainer';
+
+/**
+ * Componente para listar reservas por fecha.
+ * @component
+ */
 function ListadoEnFecha() {
   const [fecha, setFecha] = useState("");
   const [datos, setDatos] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-
+  /**
+   * Maneja el envío del formulario.
+   * @param {Event} e - Evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -39,13 +50,17 @@ function ListadoEnFecha() {
     }
   };
 
+  /**
+   * Maneja la eliminación de una reserva.
+   * @param {number} idReserva - El ID de la reserva a eliminar.
+   */
   const handleDelete = async (idReserva) => {
     let response = await fetch(apiUrl + "/reservas/" + idReserva, {
       method: "DELETE",
     });
 
     if (response.ok) {
-      // Utilizando filter creo un array sin el plato borrado
+      // Utilizando filter creo un array sin la reserva borrada
       const reservasTrasBorrado = datos.filter(
         (reserva) => reserva.idReserva != idReserva
       );

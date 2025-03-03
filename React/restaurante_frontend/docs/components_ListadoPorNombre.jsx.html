@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ListadoPorNombre.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ListadoPorNombre.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Typography, TextField, Stack, Button } from "@mui/material";
+// import Grid from "@mui/material/Grid2";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { useState } from "react";
+import { Box } from "@mui/material";
+import axios from "axios";
+import DeleteForeverIcon from '@mui/icons-material.DeleteForever';
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import { useNavigate } from "react-router";
+import { apiUrl } from "../config";
+
+/**
+ * Componente para listar clientes por nombre.
+ * @component
+ */
+function ListadoPorNombre() {
+  const [nombre, setNombre] = useState("");
+  const [datos, setDatos] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  /**
+   * Maneja el envío del formulario.
+   * @param {Event} e - Evento de envío del formulario.
+   */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const response = await axios.get(`${apiUrl}/clientes/listadopornombre/${nombre}`);
+      setDatos(response.data.datos);
+    } catch (err) {
+      if (err.response &amp;&amp; err.response.status === 404) {
+        setError("No se encontraron clientes con ese nombre");
+        setDatos([]);
+      } else {
+        setError("Error al obtener los clientes");
+        console.error("Error fetching clientes:", err);
+      }
+    }
+  };
+
+  /**
+   * Maneja la eliminación de un cliente.
+   * @param {number} idCliente - El ID del cliente a eliminar.
+   */
+  const handleDelete = async (idCliente) => {
+    let response = await fetch(apiUrl + "clientes/" + idCliente, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      // Utilizando filter creo un array sin el cliente borrado
+      const clientesTrasBorrado = datos.filter(
+        (cliente) => cliente.idCliente != idCliente
+      );
+      // Establece los datos de nuevo para provocar un renderizado
+      setDatos(clientesTrasBorrado);
+    }
+  };
+
+  return (
+    &lt;Box>
+      &lt;Typography variant="h4" align="center" sx={{ mt: 2 }}>
+        Listado de clientes por nombre
+      &lt;/Typography>
+      &lt;form onSubmit={handleSubmit}>
+        &lt;Stack direction="row" alignItems="center" align="center" justifyContent="center" spacing={2} mt={2}>
+          &lt;TextField
+            label="Nombre del cliente"
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            InputLabelProps={{ shrink: true }}
+            required
+          />
+          &lt;Button type="submit" variant="contained">Buscar&lt;/Button>
+        &lt;/Stack>
+      &lt;/form>
+
+      {error &amp;&amp; (
+        &lt;Typography color="error" mb={2}>
+          {error}
+        &lt;/Typography>
+      )}
+    &lt;Box sx={{ mx: 4 }}>
+      {datos.length > 0 &amp;&amp; (
+        &lt;TableContainer component={Paper} sx={{ mt: 2 }}>
+          &lt;Table  aria-label="simple table">
+            &lt;TableHead>
+              &lt;TableRow>
+                &lt;TableCell align="right">ID CLIENTE&lt;/TableCell>
+                &lt;TableCell>NOMBRE&lt;/TableCell>
+                &lt;TableCell>APELLIDO&lt;/TableCell>
+                &lt;TableCell>EMAIL&lt;/TableCell>
+                &lt;TableCell>TELEFONO&lt;/TableCell>
+                &lt;TableCell align="center">ELIMINAR&lt;/TableCell>
+                &lt;TableCell align="center">EDITAR&lt;/TableCell>
+              &lt;/TableRow>
+            &lt;/TableHead>
+            &lt;TableBody>
+              {datos.map((cliente) => (
+                &lt;TableRow key={cliente.idCliente}>
+                  &lt;TableCell align="right">{cliente.idCliente}&lt;/TableCell>
+                  &lt;TableCell>{cliente.nombreCliente}&lt;/TableCell>
+                  &lt;TableCell>{cliente.apellidoCliente}&lt;/TableCell>
+                  &lt;TableCell>{cliente.emailCliente}&lt;/TableCell>
+                  &lt;TableCell>{cliente.telefonoCliente}&lt;/TableCell>
+                  &lt;TableCell align="center">
+                    &lt;Button
+                      variant="contained"
+                      onClick={() => handleDelete(cliente.idCliente)}
+                      color="error"
+                    >
+                      &lt;DeleteForeverIcon fontSize="small" />
+                    &lt;/Button>
+                  &lt;/TableCell>
+                  &lt;TableCell align="center">
+                    &lt;Button
+                      variant="contained"
+                      onClick={() => navigate("/modificarcliente/" + cliente.idCliente)}
+                    >
+                      &lt;EditNoteIcon fontSize="small" />
+                    &lt;/Button>
+                  &lt;/TableCell>
+                &lt;/TableRow>
+              ))}
+            &lt;/TableBody>
+          &lt;/Table>
+        &lt;/TableContainer>
+      )}
+      &lt;/Box>
+    &lt;/Box>
+  );
+}
+
+export default ListadoPorNombre;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AltaCliente">AltaCliente</a></li><li><a href="global.html#AltaReserva">AltaReserva</a></li><li><a href="global.html#GraficaReserva">GraficaReserva</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ListadoClientes">ListadoClientes</a></li><li><a href="global.html#ListadoEnFecha">ListadoEnFecha</a></li><li><a href="global.html#ListadoPorNombre">ListadoPorNombre</a></li><li><a href="global.html#ListadoReservas">ListadoReservas</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#ModificarCliente">ModificarCliente</a></li><li><a href="global.html#ModificarReserva">ModificarReserva</a></li><li><a href="global.html#PaginaError">PaginaError</a></li><li><a href="global.html#apiUrl">apiUrl</a></li><li><a href="global.html#appTitle">appTitle</a></li><li><a href="global.html#generatePDF">generatePDF</a></li><li><a href="global.html#router">router</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Feb 26 2025 10:29:35 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

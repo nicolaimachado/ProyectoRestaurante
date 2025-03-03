@@ -14,13 +14,21 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useNavigate } from "react-router";
 import { apiUrl } from "../config";
+
+/**
+ * Componente para listar clientes por nombre.
+ * @component
+ */
 function ListadoPorNombre() {
   const [nombre, setNombre] = useState("");
   const [datos, setDatos] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-
+  /**
+   * Maneja el envío del formulario.
+   * @param {Event} e - Evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -38,13 +46,17 @@ function ListadoPorNombre() {
     }
   };
 
+  /**
+   * Maneja la eliminación de un cliente.
+   * @param {number} idCliente - El ID del cliente a eliminar.
+   */
   const handleDelete = async (idCliente) => {
-    let response = await fetch(apiUrl + "clientes/" + idCliente, {
+    let response = await fetch(apiUrl + "/clientes/" + idCliente, {
       method: "DELETE",
     });
 
     if (response.ok) {
-      // Utilizando filter creo un array sin el plato borrado
+      // Utilizando filter creo un array sin el cliente borrado
       const clientesTrasBorrado = datos.filter(
         (cliente) => cliente.idCliente != idCliente
       );
@@ -52,6 +64,20 @@ function ListadoPorNombre() {
       setDatos(clientesTrasBorrado);
     }
   };
+  // const handleDelete = async (idCliente) => {
+  //   let response = await fetch(apiUrl + "clientes/" + idCliente, {
+  //     method: "DELETE",
+  //   });
+
+  //   if (response.ok) {
+  //     // Utilizando filter creo un array sin el cliente borrado
+  //     const clientesTrasBorrado = datos.filter(
+  //       (cliente) => cliente.idCliente != idCliente
+  //     );
+  //     // Establece los datos de nuevo para provocar un renderizado
+  //     setDatos(clientesTrasBorrado);
+  //   }
+  // };
 
   return (
     <Box>
