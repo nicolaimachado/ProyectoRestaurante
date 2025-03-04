@@ -5,11 +5,123 @@ import { useNavigate } from "react-router";
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, TablePagination } from '@mui/material';
 import { apiUrl } from "../config";
 import generatePDF from "../utils/generatePDF";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
 
-/**
- * Componente para listar todos los clientes.
- * @component
- */
+// Estilos del PDF
+const styles = StyleSheet.create({
+  page: { padding: 20 },
+  title: {
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  table: {
+    display: "table",
+    width: "auto",
+    borderStyle: "solid",
+    borderWidth: 1,
+    marginBottom: 10,
+  },
+  tableRow: { flexDirection: "row" },
+  tableColHeader: {
+    width: "15%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    backgroundColor: "#ddd",
+    padding: 5,
+    fontWeight: "bold",
+  },
+  tableCol: { 
+    width: "15%", 
+    borderStyle: "solid", 
+    borderWidth: 1, 
+    padding: 5,
+    wordWrap: 'break-word',
+  },
+  tableColEmail: {
+    width: "40%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    padding: 5,
+    wordWrap: 'break-word',
+  },
+  tableColEmailHeader: {
+    width: "40%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    backgroundColor: "#ddd",
+    padding: 5,
+    fontWeight: "bold",
+  },
+  tableColId: {
+    width: "8%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    padding: 5,
+    wordWrap: 'break-word',
+  },
+  tableColIdHeader: {
+    width: "8%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    backgroundColor: "#ddd",
+    padding: 5,
+    fontWeight: "bold",
+  },
+  tableColHeaderTel: {
+    width: "22%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    backgroundColor: "#ddd",
+    padding: 5,
+    fontWeight: "bold",
+  },
+  tableColTel: { 
+    width: "22%", 
+    borderStyle: "solid", 
+    borderWidth: 1, 
+    padding: 5,
+    wordWrap: 'break-word',
+  },
+});
+
+// Componente del documento PDF
+const ListadoClientesPDF = ({ data }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <Text style={styles.title}>Listado de clientes</Text>
+      <View style={styles.table}>
+        {/* Encabezado */}
+        <View style={styles.tableRow}>
+          <Text style={styles.tableColIdHeader}>ID CLIENTE</Text>
+          <Text style={styles.tableColHeader}>NOMBRE</Text>
+          <Text style={styles.tableColHeader}>APELLIDO</Text>
+          <Text style={styles.tableColEmailHeader}>EMAIL</Text>
+          <Text style={styles.tableColHeaderTel}>TELEFONO</Text>
+        </View>
+        {/* Filas de datos */}
+        {data.map((row) => (
+          <View style={styles.tableRow} key={row.idCliente}>
+            <Text style={styles.tableColId}>{row.idCliente}</Text>
+            <Text style={styles.tableCol}>{row.nombreCliente}</Text>
+            <Text style={styles.tableCol}>{row.apellidoCliente}</Text>
+            <Text style={styles.tableColEmail}>{row.emailCliente}</Text>
+            <Text style={styles.tableColTel}>{row.telefonoCliente}</Text>
+          </View>
+        ))}
+      </View>
+    </Page>
+  </Document>
+);
+
 function ListadoClientes() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -136,8 +248,25 @@ function ListadoClientes() {
       
       </Box>
       <Box sx={{ mx: 4, mt: 2 }}>
+        <Button variant="contained" onClick={() => window.print()}>
+          Imprimir listado (navegador)
+        </Button>
+      </Box>
+      <Box sx={{ mx: 4, mt: 2 }}>
         <Button variant="contained" onClick={generatePDF}>
           Imprimir listado (jsPDF + html2canvas)
+        </Button>
+      </Box>
+      <Box sx={{ mx: 4, mt: 2 }}>
+        <Button variant="contained">
+          <PDFDownloadLink
+            document={<ListadoClientesPDF data={rows} />}
+            fileName="clientes.pdf"
+          >
+            {({ loading }) =>
+              loading ? "Generando PDF..." : "Imprimir listado (react-pdf)"
+            }
+          </PDFDownloadLink>
         </Button>
       </Box>
     </>
